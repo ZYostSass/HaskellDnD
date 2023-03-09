@@ -1,5 +1,6 @@
 module Character where
 
+import Equipment
 import Data.Maybe (Maybe(..))
 
 -- import Test.HUnit
@@ -15,51 +16,8 @@ data CharacterStats = CharacterStats
         characterEquipment :: EquippedEquipment
     } deriving (Show)
 
--- The baseline equipment template, factoring in potential stat boosts. Early version, simple.
-data Equipment = Equipment
-    { 
-        itemName :: String,
-        itemCon :: Int,
-        itemStr :: Int,
-        itemDex :: Int,
-        itemInt :: Int,
-        itemCha :: Int,
-        itemWis :: Int
-    } deriving (Show)
 
-data WeaponEquipment = WeaponEquipment
-    {
-        wepName :: String,
-        wepCon :: Int,
-        wepStr :: Int,
-        wepDex :: Int,
-        wepInt :: Int,
-        wepCha :: Int,
-        wepWis :: Int
-    } deriving (Show)
-
-data ArmorEquipment = ArmorEquipment
-    {
-        armName :: String,
-        armCon :: Int,
-        armStr :: Int,
-        armDex :: Int,
-        armInt :: Int,
-        armCha :: Int,
-        armWis :: Int
-    } deriving (Show)
-
-data AccessoryEquipment = AccessoryEquipment
-    {
-        accName :: String,
-        accCon :: Int,
-        accStr :: Int,
-        accDex :: Int,
-        accInt :: Int,
-        accCha :: Int,
-        accWis :: Int
-    } deriving (Show)  
-
+-- Equipped items can currently be either a weapon, armor or accessory.
 data EquippedEquipment = EquippedEquipment
     {
         weapon :: Maybe Equipment,
@@ -67,6 +25,9 @@ data EquippedEquipment = EquippedEquipment
         accessory :: Maybe Equipment
     } deriving (Show)
 
+-- The following equip functions allow for equipping a weapon, armor or accessory.
+-- And will also add their stat bonuses to the character. IE, a +5 str sword of power
+-- Would return "15 str" for a base template character that has 10 str.
 equipWeapon :: CharacterStats -> WeaponEquipment -> CharacterStats
 equipWeapon character weapon = 
     let equipped = characterEquipment character
@@ -124,23 +85,9 @@ equipAccessory character accessory =
             }
     in character { characterEquipment = newEquipment }
 
-{-equipItem :: CharacterStats -> Equipment -> CharacterStats
-equipItem character item = 
-    let equipped = characterEquipment character
-        newItemName = itemName item
-        newCon = itemCon item + con character
-        newStr = itemStr item + str character
-        newDex = itemDex item + dex character
-        newInt = itemInt item + int character
-        newCha = itemCha item + cha character
-        newWis = itemWis item + wis character
-        newEquipment = case newItemName of
-            "weapon" -> EquippedEquipment (Just item) (armor equipped) (accessory equipped)
-            "armor" -> EquippedEquipment (weapon equipped) (Just item) (accessory equipped)
-            "accessory" -> EquippedEquipment (weapon equipped) (armor equipped) (Just item)
-            _ -> equipped
-    in character { characterEquipment = newEquipment, con = newCon, str = newStr, dex = newDex, int = newInt, cha = newCha, wis = newWis }
-
+{-
+-- Early attempt at HUnit tests, but had difficulties importing it?
+-- Keeping for reminder to self for automated testing going forward.
 
 testEquipItem :: Test
 testEquipItem = TestList
