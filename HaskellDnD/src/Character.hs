@@ -27,6 +27,39 @@ data Equipment = Equipment
         itemWis :: Int
     } deriving (Show)
 
+data WeaponEquipment = WeaponEquipment
+    {
+        wepName :: String,
+        wepCon :: Int,
+        wepStr :: Int,
+        wepDex :: Int,
+        wepInt :: Int,
+        wepCha :: Int,
+        wepWis :: Int
+    } deriving (Show)
+
+data ArmorEquipment = ArmorEquipment
+    {
+        armName :: String,
+        armCon :: Int,
+        armStr :: Int,
+        armDex :: Int,
+        armInt :: Int,
+        armCha :: Int,
+        armWis :: Int
+    } deriving (Show)
+
+data AccessoryEquipment = AccessoryEquipment
+    {
+        accName :: String,
+        accCon :: Int,
+        accStr :: Int,
+        accDex :: Int,
+        accInt :: Int,
+        accCha :: Int,
+        accWis :: Int
+    } deriving (Show)  
+
 data EquippedEquipment = EquippedEquipment
     {
         weapon :: Maybe Equipment,
@@ -34,9 +67,64 @@ data EquippedEquipment = EquippedEquipment
         accessory :: Maybe Equipment
     } deriving (Show)
 
-defaultStats = CharacterStats { con = 10, str = 10, dex = 10, int = 10, cha = 10, wis = 10, characterEquipment = EquippedEquipment { weapon = Nothing, armor = Nothing, accessory = Nothing } }
+equipWeapon :: CharacterStats -> WeaponEquipment -> CharacterStats
+equipWeapon character weapon = 
+    let equipped = characterEquipment character
+        newEquipment = EquippedEquipment 
+            { weapon = Just $ Equipment 
+                { 
+                    itemName = wepName weapon,
+                    itemCon = wepCon weapon,
+                    itemStr = wepStr weapon,
+                    itemDex = wepDex weapon,
+                    itemInt = wepInt weapon,
+                    itemCha = wepCha weapon,
+                    itemWis = wepWis weapon
+                },
+              armor = armor equipped,
+              accessory = accessory equipped
+            }
+    in character { characterEquipment = newEquipment }
 
-equipItem :: CharacterStats -> Equipment -> CharacterStats
+equipArmor :: CharacterStats -> ArmorEquipment -> CharacterStats
+equipArmor character armor =
+    let equipped = characterEquipment character
+        newEquipment = EquippedEquipment 
+            { weapon = weapon equipped,
+              armor = Just $ Equipment 
+                { 
+                    itemName = armName armor,
+                    itemCon = armCon armor,
+                    itemStr = armStr armor,
+                    itemDex = armDex armor,
+                    itemInt = armInt armor,
+                    itemCha = armCha armor,
+                    itemWis = armWis armor
+                },
+              accessory = accessory equipped
+            }
+    in character { characterEquipment = newEquipment }
+
+equipAccessory :: CharacterStats -> AccessoryEquipment -> CharacterStats
+equipAccessory character accessory =
+    let equipped = characterEquipment character
+        newEquipment = EquippedEquipment 
+            { weapon = weapon equipped,
+              armor = armor equipped,
+              accessory = Just $ Equipment 
+                { 
+                    itemName = accName accessory,
+                    itemCon = accCon accessory,
+                    itemStr = accStr accessory,
+                    itemDex = accDex accessory,
+                    itemInt = accInt accessory,
+                    itemCha = accCha accessory,
+                    itemWis = accWis accessory
+                }
+            }
+    in character { characterEquipment = newEquipment }
+
+{-equipItem :: CharacterStats -> Equipment -> CharacterStats
 equipItem character item = 
     let equipped = characterEquipment character
         newItemName = itemName item
@@ -54,7 +142,7 @@ equipItem character item =
     in character { characterEquipment = newEquipment, con = newCon, str = newStr, dex = newDex, int = newInt, cha = newCha, wis = newWis }
 
 
-{-testEquipItem :: Test
+testEquipItem :: Test
 testEquipItem = TestList
     [ "Equipping a weapon should increase character stats" ~:
         equipItem character weaponItem ~?= expectedWeaponCharacter
