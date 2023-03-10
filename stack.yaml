@@ -35,6 +35,7 @@ packages:
 extra-deps:
   - HUnit-1.6.2.0
   - QuickCheck-2.14.2
+#  - Random
 # Dependency packages to be pulled from upstream that are not in the resolver.
 # These entries can reference officially published versions as well as
 # forks / in-progress versions pinned to a git hash. For example:
