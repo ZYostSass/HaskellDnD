@@ -1,6 +1,9 @@
 # HaskellDnD
 My functional programming project, DnD characters and stats in Haskell.
 
+Main issues now: having trouble adding dependencies for stack. Struggling to import Random and HUnit. 
+No matter where I add them as dependencies I have issues. Will need to ask for help!
+
 Major Update1 (following comments also found in Main.hs):
 
 --Main goal/hurdle: I'd like to have the power to say: "MyCharacter = equipWeapon *myCharacter* swordOfPower"
