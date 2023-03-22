@@ -2,7 +2,7 @@ module Dice where
 
 --Attempting to make Dice as a mondad. 
 --Acts as a wrapper around a traditional 'Int'
-newtype Dice a = Dice { roll :: Int -> (a, Int) }
+  newtype Dice a = Dice { roll :: Int -> (a, Int) }
 
 --Functor lets me map a func over a wrapped value; defines how map works for Dice
 --Simple, as rolling a die has limited outcomes.
