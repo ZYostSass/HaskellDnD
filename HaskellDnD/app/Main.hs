@@ -1,5 +1,4 @@
 module Main (main) where
-import Character
 import Test.HUnit
 import DNDTests
 

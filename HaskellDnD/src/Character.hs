@@ -3,9 +3,10 @@
 --RankN allows me to take an argument that is a function. VERY useful for equipping.
 module Character where
 import Test.HUnit
-import Equipment
 import Data.Maybe (Maybe(..))
-
+import Data.Typeable
+import Equipment
+{-
 -- import Test.HUnit
 -- The baseline character stat templace, which includes equipment with stats on them.
 data CharacterStats = CharacterStats
@@ -21,6 +22,7 @@ data CharacterStats = CharacterStats
 
 
 -- Equipped items can currently be either a weapon, armor or accessory.
+
 data EquippedEquipment = EquippedEquipment
     {
         weapon :: Maybe Equipment,
@@ -28,7 +30,7 @@ data EquippedEquipment = EquippedEquipment
         accessory :: Maybe Equipment
     } deriving (Show)
 
-instance Eq Equipment where
+{-instance Eq Equipment where
   (==) (Equipment name1 con1 str1 dex1 int1 cha1 wis1) (Equipment name2 con2 str2 dex2 int2 cha2 wis2) =
     name1 == name2 &&
     con1 == con2 &&
@@ -36,34 +38,24 @@ instance Eq Equipment where
     dex1 == dex2 &&
     int1 == int2 &&
     cha1 == cha2 &&
-    wis1 == wis2
+    wis1 == wis2-}
 
 instance Eq CharacterStats where
   (CharacterStats c1 s1 d1 i1 ch1 w1 eq1) == (CharacterStats c2 s2 d2 i2 ch2 w2 eq2) =
     c1 == c2 && s1 == s2 && d1 == d2 && i1 == i2 && ch1 == ch2 && w1 == w2 && eq1' == eq2'
       where eq1' = (weapon eq1, armor eq1, accessory eq1)
             eq2' = (weapon eq2, armor eq2, accessory eq2)
+-}
 
-
-equip :: (EquipmentType a) => CharacterStats -> a -> CharacterStats
+{-equip :: (EquipmentType a) => CharacterStats -> a -> CharacterStats
 equip character equipment =
     let equippedEquipment = characterEquipment character
     in character { characterEquipment = case equipment of
-        weapon -> equippedEquipment { weapon = Just (toEquipment weapon) }
-        armor -> equippedEquipment { armor = Just (toEquipment armor) }
-        accessory -> equippedEquipment { accessory = Just (toEquipment accessory) }
+        weapon -> equippedEquipment { weapon = Just (toEquipment equipment) }
+        armor -> equippedEquipment { armor = Just (toEquipment equipment) }
+        accessory -> equippedEquipment { accessory = Just (toEquipment equipment) }
     }
-
-toEquipment :: EquipmentType a => a -> Equipment
-toEquipment equipment = Equipment
-    { itemName = name equipment,
-      itemCon = con equipment,
-      itemStr = str equipment,
-      itemDex = dex equipment,
-      itemInt = int equipment,
-      itemCha = cha equipment,
-      itemWis = wis equipment
-    }
+-}
 
 -- The following equip functions allow for equipping a weapon, armor or accessory.
 -- And will also add their stat bonuses to the character. IE, a +5 str sword of power
