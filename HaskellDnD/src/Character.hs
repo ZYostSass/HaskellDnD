@@ -49,9 +49,9 @@ equip :: (EquipmentType a) => CharacterStats -> a -> CharacterStats
 equip character equipment =
     let equippedEquipment = characterEquipment character
     in character { characterEquipment = case equipment of
-        weapon -> equippedEquipment { weapon = Just (toEquipment equipment) }
-        armor -> equippedEquipment { armor = Just (toEquipment equipment) }
-        accessory -> equippedEquipment { accessory = Just (toEquipment equipment) }
+        weapon -> equippedEquipment { weapon = Just (toEquipment weapon) }
+        armor -> equippedEquipment { armor = Just (toEquipment armor) }
+        accessory -> equippedEquipment { accessory = Just (toEquipment accessory) }
     }
 
 toEquipment :: EquipmentType a => a -> Equipment

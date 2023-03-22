@@ -68,3 +68,21 @@ instance EquipmentType WeaponEquipment where
     int = wepInt
     cha = wepCha
     wis = wepWis
+
+instance EquipmentType ArmorEquipment where
+    name = armName
+    con = armCon
+    str = armStr
+    dex = armDex
+    int = armInt
+    cha = armCha
+    wis = armWis
+    
+instance EquipmentType AccessoryEquipment where
+    name = accName
+    con = accCon
+    str = accStr
+    dex = accDex
+    int = accInt
+    cha = accCha
+    wis = accWis

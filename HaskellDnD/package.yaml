@@ -21,7 +21,7 @@ description:         Please see the README on GitHub at <https://github.com/gith
 
 dependencies:
 - base >= 4.7 && < 5
-#- Random
+- random
 
 ghc-options:
 - -Wall
@@ -38,7 +38,6 @@ library:
   source-dirs: src
   dependencies:
     - HUnit
-  #  - Random
 
 executables:
   HaskellDnD-exe:
