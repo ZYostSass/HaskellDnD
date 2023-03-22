@@ -48,3 +48,23 @@ data AccessoryEquipment = AccessoryEquipment
         accCha :: Int,
         accWis :: Int
     } deriving (Show)  
+
+class EquipmentType a where
+    name :: a -> String
+    con :: a -> Int
+    str :: a -> Int
+    dex :: a -> Int
+    int :: a -> Int
+    cha :: a -> Int
+    wis :: a -> Int
+
+
+
+instance EquipmentType WeaponEquipment where
+    name = wepName
+    con = wepCon
+    str = wepStr
+    dex = wepDex
+    int = wepInt
+    cha = wepCha
+    wis = wepWis
