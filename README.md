@@ -29,6 +29,10 @@ DNDTests.hs:
 ===============
 My test suite. Tests various equip functions and dice; currently commented out test case for multiple items found the bug where characters can only have 1 item of 1 type and no more items.
 
+Combat.hs:
+===============
+Was working on combat simulation, starting with comparing defender's AC to attackers 'DiceRoll + WepDmg" before realizing my bug where character's can only have 1 item at a time.
+
 Main.hs:
 ===============
 Just a vessel for running the project when initiating stack build and stack run.
