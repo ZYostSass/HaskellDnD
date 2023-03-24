@@ -30,6 +30,7 @@ data CharacterStats a = CharacterStats
 totalStatCount :: [CharacterStats a] -> Int
 totalStatCount = foldr (\stats acc -> charCon stats + charStr stats + charDex stats + charInt stats + charCha stats + charWis stats + acc) 0
 
+--A tuple version of equippedEquipment, intended to let me have one of each; not working yet.
 data EquippedEquipment a = EquippedEquipment (Maybe a, Maybe a, Maybe a) deriving (Eq, Show)
 
 --Old version of equippedEquipment. 
@@ -69,12 +70,18 @@ class (Show a, Eq a) => Equipment a where
        itemDamage :: a -> Int
        itemAC :: a -> Int
 
+--The b type is unused, but intended to access the type's unique features.
+--'a' is shared traits, 'b' would be unique features.
 data EquipmentType a b = WeaponType a | ArmorType a | AccessoryType a
 
+--Alias that makes it easier to know/target manipulating respective data
+--A weapon, armor, or accessory.
 type Weapon = EquipmentType WeaponEquipment
 type Armor = EquipmentType ArmorEquipment
 type Accessory = EquipmentType AccessoryEquipment
 
+
+--Data focuses on the structure and members. Instance is "how" the data behaves in game.
 data WeaponEquipment = WeaponEquipment
     {
         wepName :: String,
@@ -185,7 +192,7 @@ equip equipment character =
 
 --Old, simpler equip before I implemented equipment as tuples.
 
-{-
+
 equip :: (Equipment a) => a -> CharacterStats a -> CharacterStats a
 --Order of the function: 'equip SwordOfPower myCharacter'
 equip equipment character =
@@ -198,5 +205,5 @@ equip equipment character =
             "Accessory" -> character { equippedEquipment = (equippedEquipment character) { accessory = Just (AccessoryType e) } }
             --Just in case, if nothing is recognizes and equip is called with something, rather than 'break' the character,
             --Just return the original character argument.
-            _ -> character}
+            _ -> character
 -}

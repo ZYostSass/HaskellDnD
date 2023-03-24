@@ -7,7 +7,7 @@ module Dice(
 ) where
 import System.Random
 
---Attempting to make Dice as a mondad. 
+-- Attempting to make Dice as a monad. 
 -- Takes int for # of sides, and a tuple of an int
 -- for the remaining sides of the dice.
 newtype Dice a = Dice { roll :: Int -> (a, Int) }
