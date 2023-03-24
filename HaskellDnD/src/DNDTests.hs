@@ -27,8 +27,8 @@ testEquipWeapon = TestCase $ do
         swordOfPower = WeaponEquipment "Sword of Power" 0 2 0 1 0 1 2
         equippedCharacter = equip swordOfPower testCharacter
         expectedCharacter = CharacterStats 10 10 10 10 10 10 (EquippedEquipment (Just swordOfPower, Nothing, Nothing))
-    --putStrLn $ "Equipped character:\n" ++ show equippedCharacter
-    --putStrLn $ "Expected character:\n" ++ show expectedCharacter
+    putStrLn $ "Equipped character:\n" ++ show equippedCharacter
+    putStrLn $ "Expected character:\n" ++ show expectedCharacter
     expectedCharacter @=? equippedCharacter
 
 
